@@ -7,9 +7,20 @@
 # @return The output of this action, which must be a JSON object.
 #
 #
+
+
+
 from cloudant.client import Cloudant
 from cloudant.error import CloudantException
 import requests
+
+
+{
+    "COUCH_URL": "",
+    "IAM_API_KEY": "",
+    "COUCH_USERNAME": ""
+}
+
 
 
 def main(dict):

@@ -2,6 +2,14 @@
  * Get all dealerships
  */
 
+
+{
+    "COUCH_URL": "",
+    "IAM_API_KEY": "",
+    "COUCH_USERNAME": ""
+}
+
+
 const { CloudantV1 } = require('@ibm-cloud/cloudant');
 const { IamAuthenticator } = require('ibm-cloud-sdk-core');
 
