@@ -64,10 +64,10 @@
         </thead>
         <tbody>
             {% for dealer in dealerships %}
-         
+           
                 <tr>
                     <td>{{dealer.id}}</td>
-                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}" onclick="get_dealer_details(request , {{dealer_id}} ) ">{{dealer.full_name}}</a></td>.
+                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}" onclick="get_dealer_details(request , dealer.id ) ">{{dealer.full_name}}</a></td>
                     <td>{{dealer.city}}</td>
                     <td>{{dealer.address}}</td>
                     <td>{{dealer.zip}}</td>
@@ -75,11 +75,11 @@
                 </tr>
             {% endfor %}
 
-            {% for dealer in dealerships %} 
+          <!--   {% for dealer in dealerships %} 
                 {% if dealer.id == 3 %}
                     {{ dealer}}
                 {% endif %}
-            {% endfor %}
+            {% endfor %}  -->
 
         </tbody>
     </table>
