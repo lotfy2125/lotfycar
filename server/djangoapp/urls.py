@@ -20,6 +20,7 @@ urlpatterns = [
     path('about/', view=views.about_us, name='about'),
     path('contact/', view=views.contact_us, name='contact'),
     path('logout/', view=views.logout_request, name='logout'),
+    path('dealer/<int:dealer_id>/', views.get_dealer_details, name='dealer_details'),
 
     # path for dealer reviews view
 

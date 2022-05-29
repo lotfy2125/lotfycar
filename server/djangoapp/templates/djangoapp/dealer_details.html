@@ -54,7 +54,41 @@
 
     <!-- Add reviews as cards -->
 
-    this is dealer_detail.html page (home) test .....alo
+    <!--this is dealer_detail.html page (home) test .....alo -->
+    <table class="table" id="table" data-filter-control="true">
+        <thead>
+            <tr>
+                <th data-field="id">id</th>                 
+                <th data-field="name">name</th>
+                <th data-field="dealership">dealership</th>
+                <th data-field="review">review</th> 
+                <th data-field="purchase">purchase</th>               
+                <th data-field="purchase_date">purchase_date</th>
+                <th data-field="car_make">car_make</th>
+                <th data-field="car_model">car_model</th>    
+                <th data-field="car_year">car_year</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for dealer in dealers_details %}
+
+          
+                {% if dealer.id == dealer_id %}
+                <tr>
+                    <td>{{dealer.id}}</td>
+                    <td>{{dealer.name}}</td>
+                    <td>{{dealer.dealership}}</td>
+                    <td>{{dealer.review}}</td>
+                    <td>{{dealer.purchase}}</td>
+                    <td>{{dealer.purchase_date}}</td>        
+                    <td>{{dealer.car_make}}</td>        
+                    <td>{{dealer.car_model}}</td>        
+                    <td>{{dealer.car_year}}</td>               
+                </tr>
+                {% endif %}
+        {% endfor %}
+              
 
 
     <footer> <div class="navbar-header">

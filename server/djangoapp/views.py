@@ -106,8 +106,29 @@ def registration_request(request):
 def get_dealerships(request):
    if request.method == "GET":
         url = "https://86cac1fe.us-south.apigw.appdomain.cloud/delerships/entries"
+
+        dealer_list = []
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
+
+    #    for dealer in dealerships:
+    #        address = dealer.address
+    #        city = dealer.city
+    #        full_name = dealer.full_name
+    #       id = dealer.id
+    #        lat = dealer.lat
+    #        long = dealer.long
+    #        short_name = dealer.short_name
+    #        state = dealer.state
+    #        st = dealer.st
+    #        zip = dealer.zip
+            
+        
+    #       cardealer_obj = CarDealer( address, city, full_name, id, lat, long, short_name, state, st, zip) 
+    #        dealer_list.append(cardealer_obj)   
+
+       # print(dealer_list)
+
         # Concat all dealer's short name
         #dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
@@ -117,6 +138,22 @@ def get_dealerships(request):
 # def get_dealer_details(request, dealer_id):
 # ...
 
+
+def get_dealer_details(request, dealer_id):
+    dealer_id = dealer_id
+    if request.method == "GET":
+        url = "https://86cac1fe.us-south.apigw.appdomain.cloud/review/entries"
+
+       
+        details = []
+        # Get dealers from the URL
+        dealers_details = get_dealer_reviews_from_cf(url , dealer_id )
+     #   print(dealers_details)
+      #  for dealer in dealers_details :
+       #     if dealer.id == dealer_id :
+         #       details.append(dealer) 
+
+    return render( request , 'djangoapp/dealer_details.html'  , {'dealers_details': dealers_details , 'dealer_id' : dealer_id })
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
