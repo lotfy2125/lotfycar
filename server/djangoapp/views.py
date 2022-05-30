@@ -156,12 +156,23 @@ def get_dealer_details(request, dealer_id):
     return render( request , 'djangoapp/dealer_details.html'  , {'dealers_details': dealers_details , 'dealer_id' : dealer_id })
 # Create a `add_review` view to submit a review
 
+
+
 def add_review_form(request , dealer_id):
+
+    
      
      if request.method == "GET":
         url = "https://86cac1fe.us-south.apigw.appdomain.cloud/review/entries"
 
-        dealers_details = get_dealer_reviews_from_cf(url , dealer_id )
-       
+        review_details = get_dealer_reviews_from_cf(url , dealer_id )
 
-     return render( request , 'djangoapp/add_review.html' , {'dealers_details': dealers_details , 'dealer_id' : dealer_id })
+        url1 = "https://86cac1fe.us-south.apigw.appdomain.cloud/delerships/entries"
+        dealer_info = get_dealer_reviews_from_cf(url1 , dealer_id )
+
+        car = CarModel.objects.all()
+
+     return render( request , 'djangoapp/add_review.html' , {'review_details': review_details ,
+                                                             'dealer_id' : dealer_id  ,
+                                                             'dealer_info' : dealer_info ,
+                                                             'car' : car })

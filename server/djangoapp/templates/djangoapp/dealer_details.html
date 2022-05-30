@@ -59,6 +59,7 @@
     <!-- Add reviews as cards -->
 
     <!--this is dealer_detail.html page (home) test .....alo -->
+   <!-- 
     <table class="table" id="table" data-filter-control="true">
         <thead>
             <tr>
@@ -75,6 +76,7 @@
             </tr>
         </thead>
         <tbody>
+         
             {% for dealer in dealers_details %}
 
           
@@ -96,9 +98,34 @@
                
                
         {% endfor %}
-              
+    --> 
 
+{% for dealer in dealers_details %}
+    {% if dealer.id == dealer_id %}
+    <div class="card-title"><h4> Reviews for {{ dealer.name  }}</h4> 
+        <div class="card-columns " >
+           
+            <div class="card">
+                <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/positive.png">
 
+                <div class="card-body" style="background-color: lightgray ;">
+                    <div class="card-body" >
+                        <h3>{{dealer.car_model}} , {{dealer.car_make}} , {{ dealer.car_year }}</h3>
+                    </div>
+                    <div class="card-text">
+                        {{dealer.review}}
+                    </div> 
+    
+                </div>
+
+            </div>
+           
+        </div>
+    </div>  
+    
+    
+    {% endif %}    
+{% endfor %}
     <footer> <div class="navbar-header">
         <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
     </div></footer>

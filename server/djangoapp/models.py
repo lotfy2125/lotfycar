@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+import datetime
 
 
 # Create your models here.
@@ -26,6 +27,14 @@ class CarMake(models.Model):
         return self.name 
 
 
+
+def year_choices():
+    return [(r,r) for r in range(1984, datetime.date.today().year+1)]
+
+def current_year():
+    return datetime.date.today().year
+
+
 class CarModel(models.Model):
     
     CHOICES = (
@@ -39,11 +48,16 @@ class CarModel(models.Model):
     name = models.CharField(max_length=100)
     dealer_id =models.IntegerField()
     type = models.CharField( max_length=100, choices= CHOICES )
-    year = models.DateField()
+    year = models.IntegerField(choices=year_choices(), default=current_year())
 
     def __str__(self) :
         
              return self.name 
+
+
+ 
+
+
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer(models.Model):
@@ -116,6 +130,12 @@ class DealerReview(models.Model):
         return "name: " + self.name + "review: " + self.review
 
 # Create your models here.
+
+class car(models.Model):
+   name = models.CharField(max_length=100)
+   make = models.CharField(max_length=100)
+
+
 
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 # - Name

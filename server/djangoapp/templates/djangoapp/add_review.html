@@ -11,6 +11,15 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+   
+    
+
+
+
 </head>
 
     <body>
@@ -51,8 +60,67 @@
     
 
     <!--Add a dealer table here -->
-    this is add review page (home) test .....alo
+  <br><br>
+    {% for dealer in dealer_info %}
+      {% if dealer.id == dealer_id %}
+          <h3  style="  width: 100%; margin-left: 80px; ">Add a review about  {{ dealer.full_name }}</h3>
+        <form style="  width: 80%; margin-left: 80px; " class="form-inline" ction="{% url 'djangoapp:add_review' dealer_id%}" method="post">
+                {% csrf_token %}
+        <div style="  width: 100%; ">
+            <textarea style="width: 100% ;" type="text"  class="form-control" id="content" name="content" rows="2" required  ></textarea>
+        </div>
+        <div style="  width: 100%; ">
+            <br><br>
+            <h5> 
+                <input  class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck"> 
+               Has purchased the from {{ dealer.full_name }} ?  ( select purchased car information if checked ) <br><br>
+               Choose a car make : 
+             <select id="make">
+                <option value="">-------</option>
+                 <option value="volvo">Volvo</option>
+                 <option value="saab">Saab</option>
+                 <option value="opel">Opel</option>
+                 <option value="audi">Audi</option>
+            </select>  
+           Car model : 
+            <select id="model">
+                <option value="">-------</option>
+                 <option value="volvo">Volvo</option>
+                 <option value="saab">Saab</option>
+                 <option value="opel">Opel</option>
+                 <option value="audi">Audi</option>
+            </select>  
+            Car year : 
+            <select name="year" id="year"></select>
 
+            <script type="text/javascript"
+                    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
+            </script>
+            <script type="text/javascript">
+            let startYear = 1800;
+            let endYear = new Date().getFullYear();
+            for (i = endYear; i > startYear; i--)
+            {
+              $('#year').append($('<option />').val(i).html(i));
+            }
+            </script>
+        
+            </h5>
+            
+        </div>        
+        <br><br>
+               <div style=" text-align: center; " >
+                <br><br>
+                <button  style=" text-align: center; margin-left: 100px; "  class="btn btn-primary" type="submit">Submit</button>
+               </div>  
+             
+       
+            </div>
+        </form>
+       {% endif %}    
+     {% endfor %}
+    
+       
 
     <footer> <div class="navbar-header">
         <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
