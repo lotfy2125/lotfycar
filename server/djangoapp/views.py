@@ -156,23 +156,52 @@ def get_dealer_details(request, dealer_id):
     return render( request , 'djangoapp/dealer_details.html'  , {'dealers_details': dealers_details , 'dealer_id' : dealer_id })
 # Create a `add_review` view to submit a review
 
+def add_review(request , dealer_id):
+
+   url = "https://86cac1fe.us-south.apigw.appdomain.cloud/review/entries"
+   review = {}
+   json_payload ={}
+
+   review["name"] = request.name
+   review["car_make"] = request.car_make
+   review["car_model"] = request.car_model
+   review["car_year"] = request.car_year
+   review["dealership"] = request.dealership
+   review["purchase"] = request.purchase
+   review["purchase_date"] = request.purchase_date
+   review["review"] = request.review
+   
+   json_payload["review"] = review
+   
+   ressult = post_request(url, json_payload, dealer_id)
+   
+   
+   print(review)
+   print(json_payload)
+   return HttpResponse(ressult)
+
+
+
+
 
 
 def add_review_form(request , dealer_id):
 
     
      
-     if request.method == "GET":
-        url = "https://86cac1fe.us-south.apigw.appdomain.cloud/review/entries"
+    
 
-        review_details = get_dealer_reviews_from_cf(url , dealer_id )
+        car_model = CarModel.objects.all()
+    
+        
+        car_make = CarMake.objects.all()
 
-        url1 = "https://86cac1fe.us-south.apigw.appdomain.cloud/delerships/entries"
-        dealer_info = get_dealer_reviews_from_cf(url1 , dealer_id )
 
-        car = CarModel.objects.all()
-
-     return render( request , 'djangoapp/add_review.html' , {'review_details': review_details ,
+        return render( request , 'djangoapp/add_review.html' , {
                                                              'dealer_id' : dealer_id  ,
-                                                             'dealer_info' : dealer_info ,
-                                                             'car' : car })
+                                                        
+                                                             'car_model' : car_model ,
+                                                             'car_make' : car_make})
+
+
+

@@ -44,6 +44,8 @@ class CarModel(models.Model):
 
     )
 
+    
+
     make = models.ForeignKey(CarMake , default=1 , on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=100)
     dealer_id =models.IntegerField()
@@ -53,7 +55,7 @@ class CarModel(models.Model):
     def __str__(self) :
         
              return self.name 
-
+    
 
  
 

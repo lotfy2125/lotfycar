@@ -9,6 +9,8 @@ from requests.auth import HTTPBasicAuth
 #                                     auth=HTTPBasicAuth('apikey', api_key))
 
 
+
+
 import requests
 import json
 from .models import CarDealer
@@ -27,44 +29,29 @@ def get_request(url, **kwargs):
     status_code = response.status_code
     print("With status {} ".format(status_code))
     json_data = json.loads(response.text)
-    
     return json_data
 
 
-def get_request(url, **kwargs):
-    print(kwargs)
-    print("GET from {} ".format(url))
-    try:
-        # Call get method of requests library with URL and parameters
 
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
-    except:
-        # If any error occurs
-        print("Network exception occurred")
-    status_code = response.status_code
-    print("With status {} ".format(status_code))
-    json_data = json.loads(response.text)
-    
-    return json_data
 
 # Create a `post_request` to make HTTP POST requests
 # e.g., response = requests.post(url, params=kwargs, json=payload)
 
 
-def post_request(url, **kwargs):
+def post_request(url, json_payload, **kwargs):
+    
     print(kwargs)
     print("GET from {} ".format(url))
     try:
         # Call get method of requests library with URL and parameters
-     response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
+     response = requests.post(url, params=kwargs, json=json_payload)
     except:
         # If any error occurs
         print("Network exception occurred")
     status_code = response.status_code
     print("With status {} ".format(status_code))
     json_data = json.loads(response.text)
+    print(json_data)
     return json_data
 
 
@@ -117,7 +104,7 @@ def get_dealer_reviews_from_cf(url, dealer_id):
     if json_result:
         # Get the row list in JSON as dealers
         reviews = json_result["entries"]
-
+    print(reviews)
     return reviews
 
 
