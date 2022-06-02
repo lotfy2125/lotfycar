@@ -20,8 +20,24 @@
      <!-- Navigation bar -->
      <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
+            
             <div class="navbar-header">
-                <a class="input-group" href="{% url 'djangoapp:index' %}">Home</a>
+                <form class="form-inline" action="{% url 'djangoapp:state'  %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <label for="st"> Filter by state </label>
+                        <input type="text" size="2"  class="form-control" placeholder="state" name="st" >    
+
+                        <button class="btn btn-primary" type="submit">Filter</button> <br>
+                       
+                        
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="navbar-header">
+                <a class="btn btn-link" href="{% url 'djangoapp:index' %}">Home</a>
             </div>
             <div class="navbar-header">
                 <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About Us</a>
@@ -54,19 +70,6 @@
     <h1 style="text-align: center;">Welcome to Best Cars dealership</h1>
     <img class="card-img-left" width="100%" height="300px" src="{{MEDIA_URL}}/emoji/car-dealership-tycoon-codes-1.jpg">
     <br><br>
-
-    <div class="navbar-header" >
-        <form class="form-inline" action="{% url 'djangoapp:state' %}" method="post">
-            {% csrf_token %}
-            <div class="input-group" style="margin: auto;">
-               
-               <h5> Filter by State  </h5><input type="search" style="text-align: center;" class="form-control" placeholder="state" name="st" >                      
-                <button class="btn btn-primary" type="submit">Filter</button>
-               
-            </div>
-        </form>
-    </div>
-    <br><br>
     <table class="table" id="table" data-filter-control="true">
         <thead>
             <tr>
@@ -79,8 +82,8 @@
             </tr>
         </thead>
         <tbody>
-            {% for dealer in dealerships %}
-           
+         {% for dealer in dealerships %}
+             {% if dealer.st == st %}
                 <tr>
                     <td>{{dealer.id}}</td>
                     <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}" onclick="get_dealer_details(request , dealer.id ) ">{{dealer.full_name}}</a></td>
@@ -89,6 +92,7 @@
                     <td>{{dealer.zip}}</td>
                     <td>{{dealer.st}}</td>               
                 </tr>
+                {% endif %}  
             {% endfor %}
 
           <!--   {% for dealer in dealerships %} 

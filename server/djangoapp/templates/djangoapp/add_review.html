@@ -54,12 +54,12 @@
 
     <!--Add a dealer table here -->
   <br><br>
-      {% for dealer in dealer_info %}
+      {% for dealer in dealers_details %}
          {% if dealer.id == dealer_id %}
           <h3  style="  width: 100%; margin-left: 80px; ">Add a review about  : {{ dealer.full_name }}</h3>
           {% endif %}    
         {% endfor %}
-        <form style="  width: 80%; margin-left: 80px; " class="form-inline" ction="{% url 'djangoapp:add_review' dealer_id%}" method="POST">
+        <form style="  width: 80%; margin-left: 80px; " class="form-inline" ction="{% url 'djangoapp:review' dealer_id%}" method="POST">
                 {% csrf_token %}
 
             <div style="  width: 100%; ">
@@ -76,8 +76,15 @@
         <div style="  width: 100%; ">
             <br>
             
-                <input  class="form-check-input" type="checkbox" name="purchase" id="purchase"> 
-               Has purchased the from {{ dealer.full_name }} ?  ( select purchased car information if checked ) <br>
+                <input  class="form-check-input" type="checkbox" name="purchase" id="purchase">
+               
+               Has purchased the car from :
+               {% for dealer in dealers_details %}
+                   {% if dealer.id == dealer_id %}
+                      <b> {{ dealer.full_name }} </b> ?  ( select purchased car information if checked ) <br>
+                    {% endif %}    
+                {% endfor %}
+
                Choose a car make : 
                <select id="car_make" name="car_make">
                 <option >-------</option>
@@ -119,7 +126,7 @@
         </div>
         <br>
                <div style=" text-align: center; " >
-                <br><br> <br><br> <br><br> <br><br>
+                <br><br> <br><br> <br>
                 <button  style=" text-align: center; margin-left: 100px; "  class="btn btn-primary" type="submit">Submit</button>
                </div>  
              

@@ -139,6 +139,51 @@ def get_dealerships(request):
 # ...
 
 
+def get_dealerships_by_state(request ):
+ 
+   if request.method == "POST":
+        st = request.POST['st']
+        st = st.upper()
+        url = "https://86cac1fe.us-south.apigw.appdomain.cloud/delerships/entries"              
+        # Get dealers from the URL
+        dealerships = get_dealers_from_cf(url )
+
+       
+        
+        return render(request, 'djangoapp/dealers_by_state.html'  , {'dealerships' : dealerships ,'st': st} )
+
+
+  
+
+           
+       
+
+       # return  render(request , 'djangoapp/dealers_by_state.html' , {'dealer_list': dealer_list} )          
+    #        address = dealer.address
+    #        city = dealer.city
+    #        full_name = dealer.full_name
+    #       id = dealer.id
+    #        lat = dealer.lat
+    #        long = dealer.long
+    #        short_name = dealer.short_name
+    #        state = dealer.state
+    #        st = dealer.st
+    #        zip = dealer.zip
+            
+        
+    #       cardealer_obj = CarDealer( address, city, full_name, id, lat, long, short_name, state, st, zip) 
+    #        dealer_list.append(cardealer_obj)   
+
+       # print(dealer_list)
+
+        # Concat all dealer's short name
+        #dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        # Return a list of dealer short name
+       # return render( request , 'djangoapp/index.html' , {'dealerships': dealerships})
+
+
+
+
 def get_dealer_details(request, dealer_id):
     dealer_id = dealer_id
     if request.method == "GET":
@@ -153,8 +198,11 @@ def get_dealer_details(request, dealer_id):
        #     if dealer.id == dealer_id :
          #       details.append(dealer) 
 
-    return render( request , 'djangoapp/dealer_details.html'  , {'dealers_details': dealers_details , 'dealer_id' : dealer_id })
-# Create a `add_review` view to submit a review
+    return render( request , 'djangoapp/dealer_details.html ' , {'dealers_details': dealers_details , 'dealer_id' : dealer_id })
+
+
+
+
 
 def add_review(request , dealer_id):
 
@@ -173,11 +221,11 @@ def add_review(request , dealer_id):
    
    json_payload["review"] = review
    
-   ressult = post_request(url, json_payload, dealer_id)
+   ressult = get_dealer_reviews_from_cf(url, json_payload, dealer_id)
    
    
+   print(ressult)
    print(review)
-   print(json_payload)
    return HttpResponse(ressult)
 
 
@@ -188,8 +236,9 @@ def add_review(request , dealer_id):
 def add_review_form(request , dealer_id):
 
     
-     
+        url = "https://86cac1fe.us-south.apigw.appdomain.cloud/delerships/entries"
     
+        dealers_details = get_dealer_reviews_from_cf(url , dealer_id )
 
         car_model = CarModel.objects.all()
     
@@ -197,11 +246,10 @@ def add_review_form(request , dealer_id):
         car_make = CarMake.objects.all()
 
 
-        return render( request , 'djangoapp/add_review.html' , {
-                                                             'dealer_id' : dealer_id  ,
-                                                        
-                                                             'car_model' : car_model ,
-                                                             'car_make' : car_make})
+        return render( request , 'djangoapp/add_review.html' , {'dealers_details': dealers_details,
+                                                                'dealer_id' : dealer_id  ,                                                        
+                                                                'car_model' : car_model ,
+                                                                'car_make' : car_make})
 
 
 

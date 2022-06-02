@@ -2,6 +2,7 @@ import requests
 import json
 # import related models here
 from requests.auth import HTTPBasicAuth
+from django.shortcuts import get_object_or_404, render, redirect
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -52,6 +53,7 @@ def post_request(url, json_payload, **kwargs):
     print("With status {} ".format(status_code))
     json_data = json.loads(response.text)
     print(json_data)
+
     return json_data
 
 
@@ -104,9 +106,20 @@ def get_dealer_reviews_from_cf(url, dealer_id):
     if json_result:
         # Get the row list in JSON as dealers
         reviews = json_result["entries"]
-    print(reviews)
+   # print(reviews)
     return reviews
 
+
+
+def sav_dealer_reviews_to_cf(url,  json_payload , dealer_id):
+    results = []
+    # Call get_request with a URL parameter
+    json_result = post_request(url , json_payload , dealer_id  )
+    if json_result:
+        # Get the row list in JSON as dealers
+        reviews = json_result["entries"]
+    print(reviews)
+    return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
 
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
