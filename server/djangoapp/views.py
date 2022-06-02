@@ -150,7 +150,7 @@ def get_dealerships_by_state(request ):
 
        
         
-        return render(request, 'djangoapp/dealers_by_state.html'  , {'dealerships' : dealerships ,'st': st} )
+        return render(request, 'djangoapp/dealers_by_state.html' , {'dealerships' : dealerships ,'st': st} )
 
 
   
