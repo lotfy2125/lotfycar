@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
+from requests import request
 
 
 from .models import *
@@ -251,5 +252,24 @@ def add_review_form(request , dealer_id):
                                                                 'car_model' : car_model ,
                                                                 'car_make' : car_make})
 
+
+def get_dealerships_by_st(request ):
+     
+     dealers_list = []
+     if request.method == "POST":
+        st = request.POST['st']
+        st = st.upper()
+        url = "https://86cac1fe.us-south.apigw.appdomain.cloud/delerships/entries"              
+        # Get dealers from the URL
+        dealerships = get_dealers_from_cf(url )
+        
+        dealers = dealerships['entries']
+           
+        for dealer in dealers :
+            if dealer.st == st:
+                dealers_list.append(dealer)
+                
+        print(dealers_list)
+        return render(request, 'djangoapp/dealers_by_st.html' , {'dealers_list' : dealers_list ,'st': st} )
 
 
