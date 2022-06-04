@@ -59,7 +59,7 @@
           <h3  style="  width: 100%; margin-left: 80px; ">Add a review about  : {{ dealer.full_name }}</h3>
           {% endif %}    
         {% endfor %}
-        <form style="  width: 80%; margin-left: 80px; " class="form-inline" ction="{% url 'djangoapp:review' dealer_id%}" method="POST">
+        <form style="  width: 80%; margin-left: 80px; " class="form-inline" ction="{% url 'djangoapp:add_review' dealer_id%}" method="POST">
                 {% csrf_token %}
 
             <div style="  width: 100%; ">

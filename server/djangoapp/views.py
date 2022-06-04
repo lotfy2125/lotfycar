@@ -186,7 +186,7 @@ def get_dealerships_by_state(request ):
 
 
 def get_dealer_details(request, dealer_id):
-    dealer_id = dealer_id
+
     if request.method == "GET":
         url = "https://86cac1fe.us-south.apigw.appdomain.cloud/review/entries"
 
