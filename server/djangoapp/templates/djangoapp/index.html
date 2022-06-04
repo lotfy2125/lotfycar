@@ -86,7 +86,7 @@
            
                 <tr>
                     <td>{{dealer.id}}</td>
-                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}" onclick="get_dealer_details(request , dealer.id ) ">{{dealer.full_name}}</a></td>
+                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
                     <td>{{dealer.city}}</td>
                     <td>{{dealer.address}}</td>
                     <td>{{dealer.zip}}</td>
